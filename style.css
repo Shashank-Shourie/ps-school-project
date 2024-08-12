@@ -4,7 +4,7 @@ body {
   padding: 0;
 }
 
-ul.navbar {
+.navbar {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -18,11 +18,11 @@ ul.navbar {
   z-index: 1000; /* Ensures the navbar stays above other content */
 }
 
-ul.navbar li {
+.navbar li {
   float: left;
 }
 
-ul.navbar li a {
+.navbar li a {
   display: block;
   color: white;
   text-align: center;
@@ -30,20 +30,20 @@ ul.navbar li a {
   text-decoration: none;
 }
 
-ul.navbar li a:hover {
+.navbar li a:hover {
   background-color: #111111;
 }
 
-ul.navbar .right-nav {
+.navbar .right-nav {
   display: flex;
   margin-left: auto;
 }
 
-ul.navbar .right-nav li {
+.navbar .right-nav li {
   float: none; /* Resets the float for the right-aligned elements */
 }
 
-ul.navbar li a i {
+.navbar li a i {
   margin-right: 8px; /* Adds space between the icon and the text */
 }
 
