@@ -1,19 +1,19 @@
 let k=document.body.querySelector("#dark")
-let nav=document.body.querySelector(".navbar")
 let login=document.body.querySelector("#login")
 let signup=document.body.querySelector("#signup")
+let write=document.body.querySelector("#txt")
 let back="white"
-k.addEventListener("click",()=>{
+k.addEventListener("click",(mode)=>{
     if(back==="white"){
-        document.body.style.color="white"
-        document.body.style.backgroundColor="#333333"              
-        k.innerText="Light"
+        document.body.classList.add("dark")
+        document.body.classList.remove("light")              
+        k.innerText="LightMode"
         back="black"
     }
     else{
-        document.body.style.color="#333333"
-        document.body.style.backgroundColor="white"
-        k.innerText="Dark"
+        document.body.classList.add("light")
+        document.body.classList.remove("dark")
+        k.innerText="DarkMode"
         back="white"
     }
 })
@@ -23,3 +23,7 @@ k.addEventListener("click",()=>{
 k.addEventListener("click",()=>{
     signup.style.color="#333333"
 })
+k.addEventListener("click",()=>{
+    write.style.color="#333333"
+})
+
