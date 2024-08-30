@@ -9,6 +9,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: #333333;
+  border: 2px solid rgb(59, 55, 55);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -31,7 +32,7 @@ body {
 }
 
 .navbar li a:hover {
-  background-color: #111111;
+  background-color: black;
 }
 
 .navbar .right-nav {
