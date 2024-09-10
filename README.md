@@ -63,3 +63,8 @@ Features to be added:
 3) Filter by topic
 4) AI features
 5) Feed/Timeline
+
+To run:
+-> After pulling the repo open cmd and type 'npm install'
+-> Enter 'npm run dev' to start the server
+-> Open 'localhost:5000' in your browser to see the website
