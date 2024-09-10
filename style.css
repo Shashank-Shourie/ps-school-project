@@ -1,5 +1,5 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: Arial, sans-serif; 
   margin: 0;
   padding: 0;
 }
@@ -9,6 +9,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: #333333;
+  border: 2px solid rgb(59, 55, 55);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -31,7 +32,7 @@ body {
 }
 
 .navbar li a:hover {
-  background-color: #111111;
+  background-color: black;
 }
 
 .navbar .right-nav {
@@ -61,3 +62,25 @@ pre {
 #container{
   margin-left: 10px;
 }
+#dark {
+  padding: 16px; /* Adjust padding for better size */
+  background-color: #333333;
+  color: white;
+  border: none;
+  cursor: pointer;
+  width: 100%; /* Ensure the button takes full width */
+  box-sizing: border-box; /* Include padding and border in the width calculation */
+}
+#dark:hover {
+  background-color: black;
+}
+.dark{
+  color: white;
+  background-color: #333333;  
+}
+.light{
+  color: black;
+  background-color: white;
+}
+
+

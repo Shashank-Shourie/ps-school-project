@@ -48,21 +48,25 @@
     .signup-field button:hover {
         background-color: #555555;
     }
+    #signup-text{
+        text-align: center;
+    }
 </style>
 <body>
 
   <ul class="navbar">
     <li><a href="index.html"><img src="home.png" alt="Home" class="home-icon"></a></li>
-    <li><a href="wcblog.html">Write Blog</a></li>
-    <li><a href="viewblog.html">View Blog</a></li>
+    <li><a href="wcblog.html">Write Blogs</a></li>
+    <li><a href="viewblog.html">View Blogs</a></li>
     <li><a href="AI.html">Use AI</a></li>
+    <li><button id="dark"> DarkMode</button></li>
     <li class="right-nav"><a href="login.html">Login</a></li>
     <li><a href="signup.html">Sign Up</a></li>
   </ul>
   
   <div id="signup">
       <div class="signup-field">
-          <label for="signup-title">Sign Up Page</label>
+          <label for="signup-title"id="signup-text">Sign Up Page</label>
       </div>
       <div class="signup-field">
           <label for="name">Name</label>
@@ -84,6 +88,6 @@
           <button type="submit">Sign Up</button>
       </div>
   </div>
-
+  <script src="back.js"></script>
 </body>
 </html>
