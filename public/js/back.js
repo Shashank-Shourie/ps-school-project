@@ -7,13 +7,13 @@ k.addEventListener("click",(mode)=>{
     if(back==="white"){
         document.body.classList.add("dark")
         document.body.classList.remove("light")              
-        k.innerText="LightMode"
+        // k.innerText="LightMode"
         back="black"
     }
     else{
         document.body.classList.add("light")
         document.body.classList.remove("dark")
-        k.innerText="DarkMode"
+        // k.innerText="DarkMode"
         back="white"
     }
 })
