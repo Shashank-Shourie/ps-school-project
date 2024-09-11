@@ -227,5 +227,8 @@ button[type="submit"]:hover {
 #signup-text{
   text-align: center;
 }
-
-
+.footer{
+  
+  margin: 4rem;
+  text-align: center;
+}
