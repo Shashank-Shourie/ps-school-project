@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-// const Post = require('../models/posts');
+const Post = require('../models/posts');
 
 //routes
 router.get('', async (req, res) => {
@@ -33,8 +33,37 @@ router.get('/viewblog', async (req, res) => {
             title: "View Blogs",
             description: "Blog web"
         }
-        
-        res.render('viewblog', {locals});
+        let perpage = 10;
+        let page = req.query.page || 1;
+
+        const data = await Post.aggregate([{ $sort: { createdAt: -1 } }])
+            .skip(perpage * page - perpage)
+            .limit(perpage)
+            .exec();
+
+        const count = await Post.countDocuments({});
+        const nextPage = parseInt(page) + 1;
+        const hasnextpage = nextPage <= Math.ceil(count / perpage);
+        const prevPage = page-1;
+        const hasprevPage = prevPage !=0;
+        res.render('viewblog', { locals,
+            data,
+            current: page,
+            nextPage: hasnextpage ? nextPage : null,
+            prevPage: hasprevPage ? prevPage :null});
+    } catch (error) {
+        console.log(error);
+    }
+});
+router.get('/post/:id',async (req,res) => {
+    try {
+        let slug = req.params.id;
+        const data = await Post.findById({_id:slug});
+        const locals = {
+            title: data.title,
+            description: "Blog web"
+        }
+        res.render('post',{locals,data,currentRoute:`/post/${slug}`});
     } catch (error) {
         console.log(error);
     }
