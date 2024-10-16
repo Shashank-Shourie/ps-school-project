@@ -9,6 +9,7 @@ import {
   createRoutesFromElements,
   RouterProvider,
 } from 'react-router-dom';
+import Aitest from "./pages/Aitest";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -19,6 +20,7 @@ const router = createBrowserRouter(
       <Route path="/logout" element={<Logout />} />
       <Route path='/Dashboard' element={<ViewPage />} /> {/* This will have Display component */}
       <Route path='/posts/:id' element={<BlogDetails />} /> {/* Route for blog details */}
+      <Route path='/ai' element={<Aitest/>}/>
     </>
   )
 );
