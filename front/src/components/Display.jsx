@@ -39,7 +39,7 @@ const Display = () => {
       if (!response.ok) throw new Error('Failed to fetch blogs');
       const data = await response.json();
       setBlogs(data);
-      setLoading(false);
+      setLoading(false); // Stop the loader after fetching data
     } catch (err) {
       setError(err.message);
       setLoading(false);
@@ -149,7 +149,14 @@ const Display = () => {
     </div>
   );
 
-  if (loading) return <div className="text-white">Loading...</div>;
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-blue-500"></div>
+      </div>
+    );
+  }
+
   if (error) return <div className="text-red-500">Error: {error}</div>;
 
   return (

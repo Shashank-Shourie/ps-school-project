@@ -3,7 +3,7 @@ const { HfInference } = require('@huggingface/inference');
 require('dotenv').config(); // For loading environment variables
 
 const router = express.Router();
-const hf = new HfInference('access_token');
+const hf = new HfInference('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');
 
 
 // Route for summarization

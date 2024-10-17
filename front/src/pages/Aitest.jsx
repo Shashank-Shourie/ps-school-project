@@ -1,15 +1,21 @@
 import React from 'react';
 import Summarize from '../components/Summarize';
 import GenerateBlog from '../components/GenerateBlog';
+import Navbar from '../components/Navbar'
 
-function Aitest() {
+const Aitest = () => {
   return (
-    <div>
-      <h1>AI-Powered Blog Features</h1>
-      <Summarize />
-      <GenerateBlog />
+    <>
+    <Navbar/>
+    <div className="min-h-screen bg-gray-800 p-8">
+      <h1 className="text-3xl font-bold text-center mb-8 text-white">AI-Powered Blog Features</h1>
+      <div className="max-w-4xl mx-auto">
+        <Summarize />
+        <GenerateBlog />
+      </div>
     </div>
+    </>
   );
-}
+};
 
 export default Aitest;
