@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from './Navbar';
+import Comments from './comment';  // Import the Comments component
 
 const BlogDetails = () => {
   const { id } = useParams();  // Get the blog ID from the URL
@@ -39,6 +40,11 @@ const BlogDetails = () => {
               By {blog.author.username} • {new Date(blog.createdAt).toLocaleDateString()}
             </p>
             <p className="text-gray-300">{blog.content}</p>
+
+            {/* Add the Comments component here and pass the post ID */}
+            <div className="mt-8">
+              <Comments postId={id} /> {/* Passing the blog post ID to the Comments component */}
+            </div>
           </div>
         ) : (
           <div className="text-red-500">Post not found</div>
@@ -49,4 +55,3 @@ const BlogDetails = () => {
 };
 
 export default BlogDetails;
-  

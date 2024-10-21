@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../middlewares/auth');
 const Post = require('../models/Post');
-
+const Comments = require('../models/comment')
 // Create post
 router.post('/', auth, async (req, res) => {
   try {
@@ -63,6 +63,8 @@ router.patch('/:id', auth, async (req, res) => {
 router.delete('/:id', auth, async (req, res) => {
   try {
     const post = await Post.findOneAndDelete({ _id: req.params.id, author: req.user._id });
+    await Comments.deleteMany({postId:req.params.id}); 
+
     if (!post) {
       return res.status(404).json({ error: 'Post not found' });
     }
