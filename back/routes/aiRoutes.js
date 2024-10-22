@@ -32,7 +32,7 @@ router.post('/generate', async (req, res) => {
             inputs: prompt,
             parameters: { 
                 max_new_tokens: 100, // Adjust to control the length of the response
-                temperature: 0.8, // Add randomness to avoid repetition
+                temperature: Math.random(), // Add randomness to avoid repetition
                 top_k: 50, // Consider only the top 50 tokens
                 top_p: 0.9 // Nucleus sampling to improve diversity
             },
