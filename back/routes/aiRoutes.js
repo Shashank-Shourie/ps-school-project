@@ -3,7 +3,7 @@ const { HfInference } = require('@huggingface/inference');
 require('dotenv').config(); // For loading environment variables
 
 const router = express.Router();
-const hf = new HfInference('access_token');
+const hf = new HfInference(process.env.HF_API_KEY);
 
 
 // Route for summarization
@@ -25,18 +25,19 @@ router.post('/summarize', async (req, res) => {
 
 // Route for blog creation
 router.post('/generate', async (req, res) => {
+    console.log(hf);
     const { prompt } = req.body;
     try {
         const result = await hf.textGeneration({
             model: 'EleutherAI/gpt-neo-2.7B', // More powerful model
             inputs: prompt,
             parameters: { 
-                max_new_tokens: 100, // Adjust to control the length of the response
+                max_new_tokens: 1000, // Adjust to control the length of the response
                 temperature: Math.random(), // Add randomness to avoid repetition
-                top_k: 50, // Consider only the top 50 tokens
+                top_k: 1000, // Consider only the top 50 tokens
                 top_p: 0.9 // Nucleus sampling to improve diversity
             },
-            options: { timeout: 120000 } // Extend timeout if needed
+            options: { timeout: 180000 } // Extend timeout if needed
         });
 
         console.log(result.generated_text);
