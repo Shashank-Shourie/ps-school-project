@@ -11,17 +11,22 @@ router.post('/summarize', async (req, res) => {
     console.log(hf);
     const { text } = req.body;
     try {
-        const result = await hf.summarization({
+        const result = await hf.request({
             model: 'facebook/bart-large-cnn',
             inputs: text,
         });
         console.log(result);
-        res.json({ summary: result.summary_text });
+
+        // Assuming the result contains an array of summaries, we extract the first one
+        const summary = result[0]?.summary_text || 'No summary available';
+        
+        res.json({ summary });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Error summarizing text' });
     }
 });
+
 
 // Route for blog creation
 router.post('/generate', async (req, res) => {
