@@ -29,7 +29,7 @@ router.post('/generate', async (req, res) => {
     const { prompt } = req.body;
     try {
         const result = await hf.textGeneration({
-            model: 'EleutherAI/gpt-neo-2.7B', // More powerful model
+            model: 'meta-llama/Llama-3.2-3B-Instruct', // More powerful model
             inputs: prompt,
             parameters: { 
                 max_new_tokens: 1000, // Adjust to control the length of the response
