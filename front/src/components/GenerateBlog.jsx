@@ -63,7 +63,7 @@ const GenerateBlog = () => {
       {blogPost && !loading && (
         <div className="mt-6">
           <h3 className="text-xl font-semibold text-white">Generated Blog Post:</h3>
-          <p className="mt-2 bg-gray-200 p-4 rounded-lg">{blogPost}</p>
+          <p className="mt-2 bg-gray-200 p-4 rounded-lg" style={{ whiteSpace: 'pre-wrap' }}>{blogPost}</p>
         </div>
       )}
     </div>
