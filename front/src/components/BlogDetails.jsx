@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from './Navbar';
-import Comments from './comment';  // Import the Comments component
+import Comments from './comment';
+import Summarize from './Summarize';  // Import the Summarize component
 
 const BlogDetails = () => {
-  const { id } = useParams();  // Get the blog ID from the URL
+  const { id } = useParams();
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -41,9 +42,12 @@ const BlogDetails = () => {
             </p>
             <p className="text-gray-300">{blog.content}</p>
 
-            {/* Add the Comments component here and pass the post ID */}
+            {/* Add the Summarize component and pass the blog content */}
+            <Summarize text={blog.content} />
+
+            {/* Comments section */}
             <div className="mt-8">
-              <Comments postId={id} /> {/* Passing the blog post ID to the Comments component */}
+              <Comments postId={id} />
             </div>
           </div>
         ) : (

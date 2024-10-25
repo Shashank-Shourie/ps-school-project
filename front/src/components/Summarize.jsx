@@ -1,35 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const Summarize = () => {
-  const [text, setText] = useState('');
+const Summarize = ({ text }) => {  // Accept 'text' as a prop
   const [summary, setSummary] = useState('');
-  const [loading, setLoading] = useState(false); // Add loading state
+  const [loading, setLoading] = useState(false);
 
   const handleSummarize = async () => {
-    setLoading(true); // Set loading to true before starting the request
-    const response = await fetch('http://localhost:5000/api/ai/summarize', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text }),
-    });
-    const data = await response.json();
-    setSummary(data.summary);
-    setLoading(false); // Set loading to false after getting response
+    setLoading(true);
+    try {
+      const response = await fetch('http://localhost:5000/api/ai/summarize', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text }),  // Use the passed 'text' prop
+      });
+      const data = await response.json();
+      setSummary(data.summary);
+    } catch (error) {
+      console.error('Failed to summarize:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="bg-gray-700 p-6 rounded-lg shadow-lg">
-      <h2 className="text-2xl font-semibold mb-4 text-white">Summarize Text</h2>
-      <textarea
-        className="w-full h-40 p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        placeholder="Enter text to summarize"
-      />
+    <div className="bg-gray-700 p-1 rounded-lg shadow-lg mt-4">
+      {/* <h2 className="text-2xl font-semibold mb-4 text-white">Summarize Blog</h2> */}
       <button
         onClick={handleSummarize}
-        className="mt-4 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200"
-        disabled={loading} // Disable button while loading
+        className="bg-blue-600 text-white py-2 px-2 rounded-md hover:bg-blue-700 transition duration-200"
+        disabled={loading}
       >
         {loading ? 'Summarizing...' : 'Summarize'}
       </button>
@@ -56,7 +54,7 @@ const Summarize = () => {
               d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
             />
           </svg>
-          Summarizing your blog post...
+          Summarizing the blog...
         </div>
       )}
 
