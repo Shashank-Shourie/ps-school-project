@@ -113,7 +113,8 @@ const Display = () => {
     if (!searchQuery) return blogs;
     return blogs.filter(blog =>
       blog.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      blog.content.toLowerCase().includes(searchQuery.toLowerCase())
+      blog.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      blog.author.username.toLowerCase().includes(searchQuery.toLowerCase())
     );
   };
 
