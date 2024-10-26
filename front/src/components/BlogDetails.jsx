@@ -1,14 +1,20 @@
+// BlogDetails.jsx
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from './Navbar';
 import Comments from './comment';
-import Summarize from './Summarize';  // Import the Summarize component
+import Summarize from './Summarize';
 
 const BlogDetails = () => {
   const { id } = useParams();
   const [blog, setBlog] = useState(null);
+  const [liked, setLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const token = localStorage.getItem('token');
+  const currentUser = localStorage.getItem('userId');
 
   useEffect(() => {
     fetchBlogDetails();
@@ -20,10 +26,32 @@ const BlogDetails = () => {
       if (!response.ok) throw new Error('Failed to fetch blog');
       const data = await response.json();
       setBlog(data);
+      setLiked(data.liked || false);
+      setLikeCount(data.likes);
     } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleLike = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/posts/${id}/like`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ userId: currentUser })
+      });
+      if (!response.ok) throw new Error('Failed to like/unlike');
+
+      const data = await response.json();
+      setLikeCount(data.likes);
+      setLiked(data.liked);
+    } catch (error) {
+      setError(error.message);
     }
   };
 
@@ -42,10 +70,17 @@ const BlogDetails = () => {
             </p>
             <p className="text-gray-300">{blog.content}</p>
 
-            {/* Add the Summarize component and pass the blog content */}
-            <Summarize text={blog.content} />
+            <div className="flex items-center gap-2 mt-4">
+              <button
+                className={`text-sm ${liked ? 'text-blue-500' : 'text-gray-400'} hover:text-blue-600`}
+                onClick={handleLike}
+              >
+                {liked ? 'Unlike' : 'Like'}
+              </button>
+              <span className="text-gray-400">{likeCount} {likeCount === 1 ? 'like' : 'likes'}</span>
+            </div>
 
-            {/* Comments section */}
+            <Summarize text={blog.content} />
             <div className="mt-8">
               <Comments postId={id} />
             </div>

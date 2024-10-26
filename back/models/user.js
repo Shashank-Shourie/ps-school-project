@@ -1,3 +1,4 @@
+// user.js
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
@@ -16,6 +17,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  likedPosts: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Post'
+  }],
   createdAt: {
     type: Date,
     default: Date.now

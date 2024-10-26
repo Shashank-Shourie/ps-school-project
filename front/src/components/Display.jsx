@@ -118,7 +118,32 @@ const Display = () => {
     );
   };
 
-  const BlogCard = ({ blog, isOwner }) => (
+ // Display.jsx
+const BlogCard = ({ blog, isOwner }) => {
+  const [liked, setLiked] = useState(blog.liked || false); // Track if the user liked this post
+  const [likeCount, setLikeCount] = useState(blog.likes); // Track the like count
+
+  const handleLike = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/posts/${blog._id}/like`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ userId: currentUser })
+      });
+      if (!response.ok) throw new Error('Failed to like/unlike');
+
+      const data = await response.json();
+      setLikeCount(data.likes); // Update the like count
+      setLiked(data.liked); // Update the liked status
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  return (
     <div className="bg-gray-700 rounded-lg p-4 mb-4 shadow-lg">
       <div className="flex justify-between items-center mb-2">
         <div>
@@ -147,8 +172,19 @@ const Display = () => {
         )}
       </div>
       <p className="text-gray-300">{blog.content}</p>
+      <div className="flex items-center gap-2 mt-2">
+        <button
+          className={`text-sm ${liked ? 'text-blue-500' : 'text-gray-400'} hover:text-blue-600`}
+          onClick={handleLike}
+        >
+          {liked ? 'Unlike' : 'Like'}
+        </button>
+        <span className="text-gray-400">{likeCount} {likeCount === 1 ? 'like' : 'likes'}</span>
+      </div>
     </div>
   );
+};
+
 
   if (loading) {
     return (
