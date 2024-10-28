@@ -65,6 +65,7 @@ Features to be added:
 5) Feed/Timeline
 
 To run:
--> After pulling the repo open cmd and type 'npm install'
--> Enter 'npm run dev' to start the server
--> Open 'localhost:5000' in your browser to see the website
+-> After pulling the repo open cmd and type 'npm install' in root , front and back folders
+-> Enter 'npm run dev' to start the server in front
+-> Enter 'npm start' in back to start the server in back
+-> Open 'localhost:5173' in your browser to see the website
