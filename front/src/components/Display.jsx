@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import BlogForm from './BlogForm'; // Assuming BlogForm is in a separate file
+import { FaThumbsUp } from 'react-icons/fa';
 
 const Display = () => {
   const [blogs, setBlogs] = useState([]);
@@ -120,7 +121,7 @@ const Display = () => {
 
  // Display.jsx
 const BlogCard = ({ blog, isOwner }) => {
-  const [liked, setLiked] = useState(blog.liked || false); // Track if the user liked this post
+  const [liked, setLiked] = useState(blog.liked); // Track if the user liked this post
   const [likeCount, setLikeCount] = useState(blog.likes); // Track the like count
 
   const handleLike = async () => {
@@ -177,9 +178,9 @@ const BlogCard = ({ blog, isOwner }) => {
           className={`text-sm ${liked ? 'text-blue-500' : 'text-gray-400'} hover:text-blue-600`}
           onClick={handleLike}
         >
-          {liked ? 'Unlike' : 'Like'}
+          {liked ? <FaThumbsUp className='text-blue-600 hover:size-6'/> : <FaThumbsUp className='hover:size-6' />}
         </button>
-        <span className="text-gray-400">{likeCount} {likeCount === 1 ? 'like' : 'likes'}</span>
+        <span className="text-gray-400">{likeCount}</span>
       </div>
     </div>
   );
