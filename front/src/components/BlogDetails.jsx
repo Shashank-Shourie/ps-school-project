@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import Navbar from './Navbar';
 import Comments from './comment';
 import Summarize from './Summarize';
+import { FaThumbsUp } from 'react-icons/fa';
 
 const BlogDetails = () => {
   const { id } = useParams();
@@ -75,9 +76,9 @@ const BlogDetails = () => {
                 className={`text-sm ${liked ? 'text-blue-500' : 'text-gray-400'} hover:text-blue-600`}
                 onClick={handleLike}
               >
-                {liked ? 'Unlike' : 'Like'}
+                {liked ? <FaThumbsUp className='text-blue-600 hover:size-6'/> : <FaThumbsUp className='hover:size-6' />}
               </button>
-              <span className="text-gray-400">{likeCount} {likeCount === 1 ? 'like' : 'likes'}</span>
+              <span className="text-gray-400">{likeCount}</span>
             </div>
 
             <Summarize text={blog.content} />

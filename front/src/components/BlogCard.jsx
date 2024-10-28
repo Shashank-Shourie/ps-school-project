@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { FaThumbsUp } from 'react-icons/fa';
 
 const BlogCard = ({ blog, isOwner, startEdit, handleDelete, userId }) => {
   const [likes, setLikes] = useState(blog.likes || 0);
@@ -52,12 +53,12 @@ const BlogCard = ({ blog, isOwner, startEdit, handleDelete, userId }) => {
       <p className="text-gray-300">{blog.content}</p>
       <div className="flex items-center mt-2">
         <button
-          className={`px-3 py-1 rounded ${liked ? 'bg-blue-500' : 'bg-gray-500'} text-white`}
+          className={`text-sm ${liked ? 'text-blue-500' : 'text-gray-400'} hover:text-blue-600`}
           onClick={toggleLike}
         >
-          {liked ? 'Unlike' : 'Like'}
+          {liked ? <FaThumbsUp className='text-blue-600 hover:size-6'/> : <FaThumbsUp className='hover:size-6' />}
         </button>
-        <span className="ml-2 text-gray-400">{likes} {likes === 1 ? 'Like' : 'Likes'}</span>
+        <span className="ml-2 text-gray-400">{likes}</span>
       </div>
     </div>
   );
