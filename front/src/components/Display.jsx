@@ -98,7 +98,8 @@ const Display = () => {
   const startEdit = (blog) => {
     setFormData({
       title: blog.title,
-      content: blog.content
+      content: blog.content,
+      tags: blog.tags[0]
     });
     setEditingId(blog._id);
     setShowForm(true);
@@ -111,11 +112,13 @@ const Display = () => {
   };
 
   const filterBlogs = (blogs) => {
+
     if (!searchQuery) return blogs;
     return blogs.filter(blog =>
       blog.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       blog.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      blog.author.username.toLowerCase().includes(searchQuery.toLowerCase())
+      blog.author.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (blog.tags && blog.tags[0] && blog.tags[0].toLowerCase().includes(searchQuery.toLowerCase()))
     );
   };
 
@@ -207,7 +210,7 @@ const BlogCard = ({ blog, isOwner }) => {
             onClick={() => {
               setShowForm(!showForm);
               setEditingId(null);
-              setFormData({ title: '', content: '' });
+              setFormData({ title: '', content: '',tags: ''});
             }}
           >
             {showForm ? 'Cancel' : 'New Blog Post'}

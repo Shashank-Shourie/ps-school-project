@@ -29,6 +29,16 @@ const BlogForm = ({ onSubmit, editingId, formData, setFormData, cancelEdit }) =>
           required
         />
       </div>
+      <div className="mb-4">
+        <textarea
+          name="tags"
+          placeholder="Tags"
+          value={formData.tags}
+          onChange={handleInputChange}
+          className="w-full p-2 rounded bg-gray-600 text-white"
+          required
+        />
+      </div>
       <div className="flex gap-2">
         <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
           {editingId ? 'Update Post' : 'Create Post'}
