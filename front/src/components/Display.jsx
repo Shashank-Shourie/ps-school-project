@@ -112,15 +112,16 @@ const Display = () => {
   };
 
   const filterBlogs = (blogs) => {
-
     if (!searchQuery) return blogs;
+    
     return blogs.filter(blog =>
       blog.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       blog.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
       blog.author.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (blog.tags && blog.tags[0] && blog.tags[0].toLowerCase().includes(searchQuery.toLowerCase()))
+      (blog.tags && blog.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())))
     );
   };
+  
 
  // Display.jsx
 const BlogCard = ({ blog, isOwner }) => {

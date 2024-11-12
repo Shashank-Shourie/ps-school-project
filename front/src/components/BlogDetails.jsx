@@ -79,7 +79,8 @@ const BlogDetails = () => {
                 {liked ? <FaThumbsUp className='text-blue-600 hover:size-6'/> : <FaThumbsUp className='hover:size-6' />}
               </button>
               <span className="text-gray-400">{likeCount}</span>
-              <p className="text-gray-400">{blog.tags[0]}</p>
+                <p className="text-gray-400">{blog.tags}</p>
+                
             </div>
 
             <Summarize text={blog.content} />
