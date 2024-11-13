@@ -124,7 +124,7 @@ const Display = () => {
   
 
  // Display.jsx
-const BlogCard = ({ blog, isOwner }) => {
+ const BlogCard = ({ blog, isOwner }) => {
   const [liked, setLiked] = useState(blog.liked); // Track if the user liked this post
   const [likeCount, setLikeCount] = useState(blog.likes); // Track the like count
 
@@ -176,13 +176,24 @@ const BlogCard = ({ blog, isOwner }) => {
           </div>
         )}
       </div>
+
       <p className="text-gray-300">{blog.content}</p>
+
+      {/* Display tags */}
+      <div className="flex flex-wrap gap-2 mt-2">
+        {blog.tags && blog.tags.map((tag, index) => (
+          <span key={index} className="bg-blue-500 text-white px-2 py-1 rounded-full text-xs">
+            #{tag}
+          </span>
+        ))}
+      </div>
+
       <div className="flex items-center gap-2 mt-2">
         <button
           className={`text-sm ${liked ? 'text-blue-500' : 'text-gray-400'} hover:text-blue-600`}
           onClick={handleLike}
         >
-          {liked ? <FaThumbsUp className='text-blue-600 hover:size-6'/> : <FaThumbsUp className='hover:size-6' />}
+          {liked ? <FaThumbsUp className="text-blue-600 hover:size-6" /> : <FaThumbsUp className="hover:size-6" />}
         </button>
         <span className="text-gray-400">{likeCount}</span>
       </div>
