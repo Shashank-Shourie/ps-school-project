@@ -183,7 +183,7 @@ const Display = () => {
       <div className="flex flex-wrap gap-2 mt-2">
         {blog.tags && blog.tags.map((tag, index) => (
           <span key={index} className="bg-blue-500 text-white px-2 py-1 rounded-full text-xs">
-            #{tag}
+            {tag}
           </span>
         ))}
       </div>
