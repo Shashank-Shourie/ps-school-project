@@ -1,19 +1,21 @@
 const mongoose = require('mongoose');
-const Blog = require('./models/Post'); 
+const History = require('./models/History');
 const connectDB = require('./config/db');
 
-async function updateTags() {
+async function insertHist() {
     try {
-        connectDB();
-        const result = await Blog.updateMany(
-            { tags: { $size: 0 } }, 
-            { $set: { 'tags.0': '#default' } } 
-        );
-        console.log(`${result.modifiedCount} blog(s) updated with default tags.`);
+        await connectDB();
+
+        const result = await History.create({
+            by:new mongoose.Types.ObjectId('670b417a315e569c4709c3b4')
+        });
+        console.log(`Object Created:`, result);
+    } catch (error) {
+        console.error('Error inserting history:', error);
+    } finally{
         await mongoose.disconnect();
         console.log('Disconnected from MongoDB');
-    } catch (error) {
-        console.error('Error updating tags:', error);
     }
 }
-updateTags();
+
+insertHist();

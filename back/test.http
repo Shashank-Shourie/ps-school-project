@@ -1,7 +1,6 @@
-POST http://localhost:5000/api/auth/login
+POST http://localhost:5000/api/hist/newchat
 Content-Type: application/json
 
 {
-    "email": "test@example.com",
-    "password": "password123"
+    "userId":"670b417a315e569c4709c3b4"
 }
