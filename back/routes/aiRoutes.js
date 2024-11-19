@@ -27,9 +27,15 @@ router.post('/summarize', async (req, res) => {
 
 router.post('/generate', async (req, res) => {
     console.log(hf);
-    const { prompt } = req.body;
-    const {userId} = req.userId;
+    const { prompt,userId } = req.body;
     try {
+
+        const chat = await History.find({
+            by:userId
+        })
+
+        console.log(chat);
+
         const result = await hf.textGeneration({
             model: 'meta-llama/Llama-3.2-3B-Instruct',
             inputs: prompt,
