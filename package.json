@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start:backend": "cd back && npm start",
+    "start:backend": "cd back && node --watch server",
     "start:frontend": "cd front && npm run dev",
     "start": "npm-run-all --parallel start:backend start:frontend"
   },
