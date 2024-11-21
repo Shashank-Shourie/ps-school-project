@@ -7,7 +7,7 @@ const Comments = require('../models/comment')
 // Create post
 router.post('/', auth, async (req, res) => {
   try {
-    let stags = req.body.tags.split(" ");
+    let stags = req.body.tags
     console.log(stags);
     const post = new Post({
       ...req.body,

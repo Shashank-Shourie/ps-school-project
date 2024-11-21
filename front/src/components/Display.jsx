@@ -63,13 +63,18 @@ const Display = () => {
 
       const method = editingId ? 'PATCH' : 'POST';
 
+      const updatedData = {
+        ...formData,
+        tags: formData.tags.split(' ') // Split the tags string into an array
+      };
+
       const response = await fetch(url, {
         method: method,
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}` // Add token to headers
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(updatedData),
       });
 
       if (!response.ok) throw new Error('Failed to save blog');
@@ -106,7 +111,7 @@ const Display = () => {
     setFormData({
       title: blog.title,
       content: blog.content,
-      tags: blog.tags[0]
+      tags: blog.tags.join(' ')
     });
     setEditingId(blog._id);
     setShowForm(true);
@@ -193,7 +198,7 @@ const Display = () => {
         {blog.tags && blog.tags.map((tag, index) => (
           <button
             key={index}
-            className="bg-blue-500 text-white px-2 py-1 rounded-full text-xs mr-1"
+            className="bg-blue-500 text-white px-2 py-1 rounded-full text-xs mr-1 border-2 border-lime-300"
             onClick={() => {
               setSearchQuery(tag);
             }}

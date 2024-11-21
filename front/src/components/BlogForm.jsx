@@ -34,7 +34,7 @@ const BlogForm = ({ onSubmit, editingId, formData, setFormData, cancelEdit }) =>
           name="tags"
           placeholder="Tags"
           value={formData.tags}
-          onChange={handleInputChange}
+          onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
           className="w-full p-2 rounded bg-gray-600 text-white"
           required
         />
