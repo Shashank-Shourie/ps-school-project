@@ -171,7 +171,7 @@ const Display = () => {
               <h3 className="text-xl text-white font-bold">{blog.title}</h3>
             </Link>
             <p className="text-gray-400 text-sm">
-              By {blog.author?.username || 'Unknown'} • {new Date(blog.updatedAt).toLocaleDateString()||new Date(blog.createdAt).toLocaleDateString()}
+              By {blog.author?.username || 'Unknown'} • {new Date(blog.updatedAt).toLocaleDateString() || new Date(blog.createdAt).toLocaleDateString()}
             </p>
           </div>
           {isOwner && (
@@ -268,25 +268,38 @@ const Display = () => {
         )}
 
         <div className="mb-6">
-          <div className="flex gap-4 border-b border-gray-600">
-            <button
-              className={`py-2 px-4 ${activeTab === 'myBlogs'
-                ? 'text-white border-b-2 border-blue-500'
-                : 'text-gray-400 hover:text-white'}`}
-              onClick={() => setActiveTab('myBlogs')}
-            >
-              My Blogs
-            </button>
-            <button
-              className={`py-2 px-4 ${activeTab === 'allBlogs'
-                ? 'text-white border-b-2 border-blue-500'
-                : 'text-gray-400 hover:text-white'}`}
-              onClick={() => setActiveTab('allBlogs')}
-            >
-              All Blogs
-            </button>
+          <div className="flex justify-between items-center border-b border-gray-600">
+            <div className="flex gap-4">
+              <button
+                className={`py-2 px-4 ${activeTab === 'myBlogs'
+                    ? 'text-white border-b-2 border-blue-500'
+                    : 'text-gray-400 hover:text-white'
+                  }`}
+                onClick={() => setActiveTab('myBlogs')}
+              >
+                My Blogs
+              </button>
+              <button
+                className={`py-2 px-4 ${activeTab === 'allBlogs'
+                    ? 'text-white border-b-2 border-blue-500'
+                    : 'text-gray-400 hover:text-white'
+                  }`}
+                onClick={() => setActiveTab('allBlogs')}
+              >
+                All Blogs
+              </button>
+            </div>
+            {searchQuery && (
+              <button
+                className="py-2 px-4 text-white bg-gray-800 rounded hover:bg-gray-500"
+                onClick={() => setSearchQuery('')}
+              >
+                Reset
+              </button>
+            )}
           </div>
         </div>
+
 
         <div className="space-y-4">
           {activeTab === 'myBlogs' ? (

@@ -1,7 +1,7 @@
-POST http://localhost:5000/api/ai/generate
+POST http://localhost:5000/api/auth/editusername
 Content-Type: application/json
 
 {
-    "userId":"670b417a315e569c4709c3b4",
-    "prompt":"football vs soccer"
+    "id":"670b417a315e569c4709c3b4",
+    "username":"DVSS"
 }

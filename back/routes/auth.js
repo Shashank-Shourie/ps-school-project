@@ -17,6 +17,18 @@ router.post('/register', async (req, res) => {
   }
 });
 
+router.post('/editusername', async (req,res) => {
+  const {id,username} = req.body;
+  console.log(id);
+  console.log(username);
+  const namecheck = User.findOne({username:username});
+  if(!namecheck) res.status(404).json({error:"user already exist"})
+  const user = await User.findById(id);
+  Object.assign(user, req.body);
+  await user.save();
+  res.json(user);
+})
+
 // Login
 router.post('/login', async (req, res) => {
   try {
