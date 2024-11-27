@@ -2,7 +2,6 @@ const express = require('express');
 const { HfInference } = require('@huggingface/inference');
 require('dotenv').config(); // For loading environment variables
 
-const History = require('../models/History');
 
 const router = express.Router();
 const hf = new HfInference(process.env.HF_API_KEY);
