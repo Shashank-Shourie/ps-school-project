@@ -32,12 +32,6 @@ const Navbar = () => {
     }
   };
 
-  const LinkClass = ({ isActive }) => 
-    isActive
-      ? 'font-medium text-blue-400 hover:text-blue-300 focus:outline-none'
-      : 'font-medium text-gray-300 hover:text-gray-100 focus:outline-none focus:text-gray-100';
-
-
   return (
     <header className="flex flex-wrap sm:justify-start sm:flex-nowrap w-full bg-gray-900 text-sm py-3 shadow-lg">
       <nav className="max-w-[85rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between z-50">
@@ -67,22 +61,24 @@ const Navbar = () => {
             <div className="relative">
               <button
                 onClick={() => setProfileOptions((value) => !value)}
-                className="font-medium text-gray-300 hover:text-gray-100 focus:outline-none text-2xl"
+                className={`font-medium text-gray-300 hover:text-gray-100 focus:outline-none text-2xl transform transition-transform duration-300 ${
+                  profileOptions ? 'rotate-90' : ''
+                }`}
               >
                 &#x2261;
               </button>
               {profileOptions && (
-                <div className="absolute top-full mt-2 bg-gray-800  text-white shadow-lg rounded p-2 right-0">
+                <div className="absolute top-full mt-2 bg-black text-white shadow-lg rounded w-40 right-0">
                   <button
                     onClick={handleLogout}
-                    className="block w-full text-left font-medium text-gray-300 hover:text-gray-100 hover:bg-gray-600 focus:outline-none"
+                    className="block w-full text-left px-4 py-2 font-medium text-gray-300 hover:text-gray-100 hover:bg-gray-600 focus:outline-none"
                   >
                     Logout
                   </button>
                   <button
-                    className="block w-full text-left font-small text-gray-300 hover:text-gray-100 hover:bg-gray-600 focus:outline-none"
+                    className="block w-full text-left px-4 py-2 font-medium text-gray-300 hover:text-gray-100 hover:bg-gray-600 focus:outline-none"
                   >
-                    Change username
+                    Change Username
                   </button>
                 </div>
               )}
