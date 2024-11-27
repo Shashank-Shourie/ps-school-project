@@ -5,7 +5,6 @@ const authRoutes = require('./routes/auth');
 const postRoutes = require('./routes/posts');
 const aiRoutes = require('./routes/aiRoutes');
 const commentRoute = require('./routes/comment');
-const historyRoute = require('./routes/chatHist');
 
 const app = express();
 
@@ -22,7 +21,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/posts/:id/comment', commentRoute);
-app.use('/api/hist',historyRoute);
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

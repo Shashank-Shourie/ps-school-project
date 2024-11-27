@@ -26,47 +26,22 @@ router.post('/summarize', async (req, res) => {
 
 
 router.post('/generate', async (req, res) => {
-    const { prompt, userId } = req.body;
-
+    console.log(hf);
+    const {prompt} = req.body;
     try {
-        // Find the user's conversation history
-        let chat = await History.findOne({ by: userId });
-
-        // If no history exists, create a new one
-        if (!chat) {
-            chat = await History.create({ by: userId, inputs: [], outputs: [] });
-        }
-
-        // Combine previous inputs and outputs for context
-        const context = chat.inputs
-            .map((input, idx) => `User: ${input}\nAI: ${chat.outputs[idx] || ''}`)
-            .join('\n') + `\nUser: ${prompt}\n`;
-
-        console.log(context);
-        console.log("++++++++++");
-        // Call the Hugging Face model with the conversation context
         const result = await hf.textGeneration({
             model: 'meta-llama/Llama-3.2-3B-Instruct',
-            inputs: context,
+            inputs: prompt,
             parameters: { 
-                // max_new_tokens: 1000,
+                max_new_tokens: 1000,
                 temperature: Math.random(),
                 top_k: 1000,
                 top_p: 0.9
             },
             options: { timeout: 180000 }
         });
-
-        // Extract the AI's response
-        const aiResponse = result.generated_text;
-
-        // Update the history with the new prompt and response
-        chat.inputs.push(prompt);
-        chat.outputs.push(aiResponse);
-        await chat.save();
-
-        console.log(aiResponse);
-        res.json({ blogPost: aiResponse });
+        console.log(result.generated_text);
+        res.json({ blogPost: result.generated_text });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Error generating text' });
