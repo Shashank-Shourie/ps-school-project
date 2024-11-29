@@ -21,7 +21,7 @@ router.post('/editusername', async (req,res) => {
   const {id,username} = req.body;
   console.log(id);
   console.log(username);
-  const namecheck = User.findOne({username:username});
+  const namecheck = await User.findOne({username:username});
   if(!namecheck) res.status(404).json({error:"user already exist"})
   const user = await User.findById(id);
   Object.assign(user, req.body);

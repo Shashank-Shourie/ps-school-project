@@ -24,6 +24,9 @@ const Navbar = () => {
     }
   };
 
+  const handleChangeNameClick = () => {
+    navigate('/changename');
+  }
   const handleAIListClick = () => {
     if (!token) {
       navigate('/signup');
@@ -77,6 +80,7 @@ const Navbar = () => {
                   </button>
                   <button
                     className="block w-full text-left px-4 py-2 font-medium text-gray-300 hover:text-gray-100 hover:bg-gray-600 focus:outline-none"
+                    onClick={handleChangeNameClick}
                   >
                     Change Username
                   </button>
