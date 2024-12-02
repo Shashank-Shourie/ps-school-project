@@ -66,6 +66,7 @@ const GenerateBlog = () => {
           <p className="mt-2 bg-gray-200 p-4 rounded-lg" style={{ whiteSpace: 'pre-wrap' }}>{blogPost}</p>
         </div>
       )}
+      
     </div>
   );
 };

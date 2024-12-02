@@ -1,6 +1,6 @@
-POST http://localhost:5000/api/auth/notevalues
+POST http://localhost:5000/api/ai/generate-image
 Content-Type: application/json
 
 {
-    "author":"670b417a315e569c4709c3b4"
+    "blogContent": "A beautiful sunset over a serene lake"
 }

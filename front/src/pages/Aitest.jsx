@@ -3,6 +3,7 @@ import Summarize1 from '../components/Blsummary';
 import GenerateBlog from '../components/GenerateBlog';
 import Navbar from '../components/Navbar'
 import NoteBox from '../components/NoteBox';
+import GenerateImage from '../components/GenerateImage';
 
 const Aitest = () => {
   return (
@@ -13,6 +14,7 @@ const Aitest = () => {
       <div className="max-w-4xl mx-auto">
         <Summarize1 />
         <GenerateBlog />
+        <GenerateImage/>
         <NoteBox/>
       </div>
     </div>
