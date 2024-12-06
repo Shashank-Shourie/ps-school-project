@@ -22,6 +22,7 @@ const GenerateImage = () => {
 
             if (response.ok && data.imageUrl) {
                 setImageUrl(data.imageUrl);
+                console.log(imageUrl);
             } else {
                 setError(data.error || 'Failed to generate image');
             }
@@ -62,7 +63,7 @@ const GenerateImage = () => {
             {imageUrl && (
                 <div style={{ marginTop: '2rem' }}>
                     <h3>Generated Image:</h3>
-                    <img src={imageUrl} alt="Generated" style={{ maxWidth: '100%', height: 'auto', borderRadius: '10px' }} />
+                    <img src={imageUrl} alt="Generated" style={{ maxWidth: '100%', height: 'auto', borderRadius: '10px' } } className='ml-10'/>
                 </div>
             )}
         </div>
