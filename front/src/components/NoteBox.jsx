@@ -6,20 +6,15 @@ const NoteBox = () => {
   const [position, setPosition] = useState({ x: 100, y: 100 });
   const [isDragging, setIsDragging] = useState(false);
   const dragOffset = useRef({ x: 0, y: 0 });
-  const boxRef = useRef(null);
   const animationFrameRef = useRef(null);
   const [formData, setFormData] = useState({ text: "" });
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(true);
 
-  // Fetch the note data
   const fetchNote = async () => {
-    console.log("Function is being called");
     try {
       const response = await fetch("http://localhost:5000/api/auth/notevalues", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ author: getUserId() }),
       });
       const data = await response.json();
@@ -29,29 +24,27 @@ const NoteBox = () => {
     } catch (error) {
       console.error("Error fetching note:", error);
     } finally {
-      setLoading(false); // Set loading to false after fetch
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchNote();
-  }, []); // Fetch note on component mount
+  }, []);
 
-  const handleMouseDown = (e) => {
+  const startDrag = (clientX, clientY) => {
     setIsDragging(true);
     dragOffset.current = {
-      x: e.clientX - position.x,
-      y: e.clientY - position.y,
+      x: clientX - position.x,
+      y: clientY - position.y,
     };
   };
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (clientX, clientY) => {
     if (isDragging) {
-      const newX = e.clientX - dragOffset.current.x;
-      const newY = e.clientY - dragOffset.current.y;
-
-      // Use requestAnimationFrame for smooth updates
-      if (animationFrameRef.current === null) {
+      const newX = clientX - dragOffset.current.x;
+      const newY = clientY - dragOffset.current.y;
+      if (!animationFrameRef.current) {
         animationFrameRef.current = requestAnimationFrame(() => {
           setPosition({ x: newX, y: newY });
           animationFrameRef.current = null;
@@ -60,32 +53,58 @@ const NoteBox = () => {
     }
   };
 
-  const handleMouseUp = () => {
-    setIsDragging(false);
-    animationFrameRef.current = null; // Clear any pending animation frame
+  const handleMouseDown = (e) => {
+    e.preventDefault();
+    startDrag(e.clientX, e.clientY);
   };
+
+  const handleTouchStart = (e) => {
+    if (e.touches.length === 1) {
+      startDrag(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  };
+
+  const handleMouseMoveWrapper = (e) => handleMouseMove(e.clientX, e.clientY);
+  const handleTouchMove = (e) => {
+    if (e.touches.length === 1) {
+      handleMouseMove(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  };
+
+  const handleMouseUp = () => setIsDragging(false);
+  const handleTouchEnd = () => setIsDragging(false);
+
+  useEffect(() => {
+    if (isDragging) {
+      document.addEventListener("mousemove", handleMouseMoveWrapper);
+      document.addEventListener("mouseup", handleMouseUp);
+      document.addEventListener("touchmove", handleTouchMove);
+      document.addEventListener("touchend", handleTouchEnd);
+    } else {
+      document.removeEventListener("mousemove", handleMouseMoveWrapper);
+      document.removeEventListener("mouseup", handleMouseUp);
+      document.removeEventListener("touchmove", handleTouchMove);
+      document.removeEventListener("touchend", handleTouchEnd);
+    }
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMoveWrapper);
+      document.removeEventListener("mouseup", handleMouseUp);
+      document.removeEventListener("touchmove", handleTouchMove);
+      document.removeEventListener("touchend", handleTouchEnd);
+    };
+  }, [isDragging]);
 
   const handleChange = async (e) => {
     const { name, value } = e.target;
     const updatedFormData = { ...formData, [name]: value };
     setFormData(updatedFormData);
-
-    // Send updated note to the backend
     try {
       const response = await fetch("http://localhost:5000/api/auth/Notes", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          author: getUserId(),
-          text: updatedFormData.text,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ author: getUserId(), text: updatedFormData.text }),
       });
-      if (response.ok) {
-        // Re-fetch the updated note data
-        await fetchNote();
-      } else {
+      if (!response.ok) {
         console.error("Failed to update note:", await response.json());
       }
     } catch (error) {
@@ -93,30 +112,13 @@ const NoteBox = () => {
     }
   };
 
-  useEffect(() => {
-    if (isDragging) {
-      document.addEventListener("mousemove", handleMouseMove);
-      document.addEventListener("mouseup", handleMouseUp);
-    } else {
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseup", handleMouseUp);
-    }
-
-    return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseup", handleMouseUp);
-    };
-  }, [isDragging]);
-
-  const toggleOpen = () => {
-    setIsOpen((prev) => !prev);
-  };
+  const toggleOpen = () => setIsOpen((prev) => !prev);
 
   return loading ? (
-    <div>Loading...</div> // Show a loading message or spinner while fetching
+    <div>Loading...</div>
   ) : (
     <div
-      className={`absolute bg-yellow-300 shadow-lg rounded-lg transition-all duration-300 ${
+      className={`fixed bg-yellow-300 shadow-lg rounded-lg transition-all duration-300 ${
         isDragging ? "cursor-grabbing" : "cursor-grab"
       }`}
       style={{
@@ -125,10 +127,9 @@ const NoteBox = () => {
         width: isOpen ? "200px" : "50px",
         height: isOpen ? "150px" : "50px",
         padding: isOpen ? "10px" : "0",
-        backgroundColor: isOpen ? "yellow" : "yellow",
       }}
       onMouseDown={handleMouseDown}
-      ref={boxRef}
+      onTouchStart={handleTouchStart}
     >
       {isOpen ? (
         <div className="relative w-full h-full">
