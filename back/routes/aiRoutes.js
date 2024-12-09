@@ -41,6 +41,12 @@ router.post('/generate', async (req, res) => {
         });
         console.log(result.generated_text);
         res.json({ blogPost: result.generated_text });
+        const aiblog = {
+            title:prompt,
+            content:result.generated_text,
+            tags:['#ai']
+        }
+        
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Error generating text' });

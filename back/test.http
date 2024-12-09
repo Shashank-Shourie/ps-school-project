@@ -1,6 +1,8 @@
-POST http://localhost:5000/api/ai/generate-image
+POST http://localhost:5000/api/posts
 Content-Type: application/json
-
+Authorization: `Bearer ${token}`
 {
-    "blogContent": "A beautiful sunset over a serene lake"
+    "title":"upload through ai",
+    "contene":"test",
+    "tags":["#ai"]
 }
