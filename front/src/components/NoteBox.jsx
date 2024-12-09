@@ -54,12 +54,15 @@ const NoteBox = () => {
   };
 
   const handleMouseDown = (e) => {
-    e.preventDefault();
-    startDrag(e.clientX, e.clientY);
+    if (e.target === e.currentTarget) {
+      // Start dragging only if the event is on the container, not its children
+      e.preventDefault();
+      startDrag(e.clientX, e.clientY);
+    }
   };
 
   const handleTouchStart = (e) => {
-    if (e.touches.length === 1) {
+    if (e.target === e.currentTarget && e.touches.length === 1) {
       startDrag(e.touches[0].clientX, e.touches[0].clientY);
     }
   };
@@ -95,6 +98,7 @@ const NoteBox = () => {
   }, [isDragging]);
 
   const handleChange = async (e) => {
+    e.stopPropagation(); // Prevent bubbling to parent draggable area
     const { name, value } = e.target;
     const updatedFormData = { ...formData, [name]: value };
     setFormData(updatedFormData);
@@ -138,6 +142,8 @@ const NoteBox = () => {
             placeholder="Write your note here..."
             value={formData.text}
             onChange={handleChange}
+            onMouseDown={(e) => e.stopPropagation()} // Prevent drag start
+            onTouchStart={(e) => e.stopPropagation()} // Prevent drag start
             className="w-full h-full bg-yellow border-none outline-none resize-none text-sm text-gray-800"
           />
           <button
