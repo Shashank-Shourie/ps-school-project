@@ -15,7 +15,7 @@ const Comments = ({ postId }) => {
     const fetchComments = async () => {
         setLoading(true); // Set loading to true while fetching
         try {
-            const response = await axios.get(`http://localhost:5000/api/posts/${postId}/comment`);
+            const response = await axios.get(`https://back-chi-ten.vercel.app/api/posts/${postId}/comment`);
             if (Array.isArray(response.data)) {
                 setComments(response.data);  // Ensure the response is an array
             } else {
@@ -40,7 +40,7 @@ const Comments = ({ postId }) => {
             }
 
             await axios.post(
-                `http://localhost:5000/api/posts/${postId}/comment`, 
+                `https://back-chi-ten.vercel.app/api/posts/${postId}/comment`, 
                 { content: newComment },
                 { headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } }
             );

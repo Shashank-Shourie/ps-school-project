@@ -8,7 +8,7 @@ const GenerateBlog = () => {
 
   const handleGenerate = async () => {
     setLoading(true);
-    const response = await fetch('http://localhost:5000/api/ai/generate', {
+    const response = await fetch('https://back-chi-ten.vercel.app/api/ai/generate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ prompt }),
@@ -20,7 +20,7 @@ const GenerateBlog = () => {
   };
 
   const handlePost = async () => {
-    const response = await fetch('http://localhost:5000/api/posts', {
+    const response = await fetch('https://back-chi-ten.vercel.app/api/posts', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

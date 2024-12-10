@@ -12,7 +12,7 @@ const NoteBox = () => {
 
   const fetchNote = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/auth/notevalues", {
+      const response = await fetch("https://back-chi-ten.vercel.app/api/auth/notevalues", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ author: getUserId() }),
@@ -103,7 +103,7 @@ const NoteBox = () => {
     const updatedFormData = { ...formData, [name]: value };
     setFormData(updatedFormData);
     try {
-      const response = await fetch("http://localhost:5000/api/auth/Notes", {
+      const response = await fetch("https://back-chi-ten.vercel.app/api/auth/Notes", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ author: getUserId(), text: updatedFormData.text }),

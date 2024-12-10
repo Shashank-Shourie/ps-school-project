@@ -12,7 +12,7 @@ const GenerateImage = () => {
     setImageUrl(null);
 
     try {
-      const response = await fetch('http://localhost:5000/api/ai/generate-image', {
+      const response = await fetch('https://back-chi-ten.vercel.app/api/ai/generate-image', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ blogContent }),

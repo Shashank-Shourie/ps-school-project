@@ -7,7 +7,7 @@ const Summarize = ({ text }) => {  // Accept 'text' as a prop
   const handleSummarize = async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:5000/api/ai/summarize', {
+      const response = await fetch('https://back-chi-ten.vercel.app/api/ai/summarize', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text }),  // Use the passed 'text' prop
