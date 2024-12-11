@@ -33,7 +33,7 @@ const ChangeUname = () => {
                 username: formData.new_username,
                 id: getUserId()
             }
-            const response = await fetch('http://localhost:5000/api/auth/editusername', {
+            const response = await fetch('https://back-chi-ten.vercel.app/api/auth/editusername', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ const ChangeUname = () => {
         <div className="min-h-screen flex items-start justify-center bg-gray-800 pt-0 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full space-y-8 mt-[-20px]">
                 <div>
-                    <h2 className="mt-6 text-center text-3xl font-extrabold text-white">
+                    <h2 className="mt-9 text-center text-5xl font-mono font-bold text-white">
                         Edit username
                     </h2>
                 </div>

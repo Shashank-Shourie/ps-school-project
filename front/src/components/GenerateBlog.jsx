@@ -3,18 +3,44 @@ import React, { useState } from 'react';
 const GenerateBlog = () => {
   const [prompt, setPrompt] = useState('');
   const [blogPost, setBlogPost] = useState('');
-  const [loading, setLoading] = useState(false);  // State to manage loading
+  const [loading, setLoading] = useState(false);
+  const [showPostOption, setShowPostOption] = useState(false);
 
   const handleGenerate = async () => {
-    setLoading(true);  // Set loading to true when request starts
-    const response = await fetch('http://localhost:5000/api/ai/generate', {
+    setLoading(true);
+    const response = await fetch('https://back-chi-ten.vercel.app/api/ai/generate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prompt}),
+      body: JSON.stringify({ prompt }),
     });
     const data = await response.json();
     setBlogPost(data.blogPost);
-    setLoading(false);  // Set loading to false when request ends
+    setLoading(false);
+    setShowPostOption(true); // Show post option after generation
+  };
+
+  const handlePost = async () => {
+    const response = await fetch('https://back-chi-ten.vercel.app/api/posts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`, // Assuming token is stored in localStorage
+      },
+      body: JSON.stringify({
+        title: prompt,
+        content: blogPost,
+        tags: ['#ai'],
+      }),
+    });
+    const data = await response.json();
+    if (response.ok) {
+      alert('Blog posted successfully!');
+      setPrompt('');
+      setBlogPost('');
+      setShowPostOption(false);
+    } else {
+      alert(`Error posting blog: ${data.error}`);
+    }
   };
 
   return (
@@ -29,7 +55,7 @@ const GenerateBlog = () => {
       <button
         onClick={handleGenerate}
         className="mt-4 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200"
-        disabled={loading}  // Disable button while loading
+        disabled={loading}
       >
         {loading ? 'Generating...' : 'Generate Blog'}
       </button>
@@ -64,6 +90,22 @@ const GenerateBlog = () => {
         <div className="mt-6">
           <h3 className="text-xl font-semibold text-white">Generated Blog Post:</h3>
           <p className="mt-2 bg-gray-200 p-4 rounded-lg" style={{ whiteSpace: 'pre-wrap' }}>{blogPost}</p>
+          {showPostOption && (
+            <div className="mt-4">
+              <button
+                onClick={handlePost}
+                className="bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition duration-200 mr-2"
+              >
+                Post Blog
+              </button>
+              <button
+                onClick={() => setShowPostOption(false)}
+                className="bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 transition duration-200"
+              >
+                Cancel
+              </button>
+            </div>
+          )}
         </div>
       )}
     </div>

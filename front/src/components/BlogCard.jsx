@@ -8,7 +8,7 @@ const BlogCard = ({ blog, isOwner, startEdit, handleDelete, userId }) => {
 
   const toggleLike = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/posts/${blog._id}/like`, {
+      const response = await fetch(`https://back-chi-ten.vercel.app/api/posts/${blog._id}/like`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId })

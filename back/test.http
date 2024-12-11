@@ -1,6 +1,8 @@
-POST http://localhost:5000/api/auth/notevalues
+POST http://localhost:5000/api/posts
 Content-Type: application/json
-
+Authorization: `Bearer ${token}`
 {
-    "author":"670b417a315e569c4709c3b4"
+    "title":"upload through ai",
+    "contene":"test",
+    "tags":["#ai"]
 }

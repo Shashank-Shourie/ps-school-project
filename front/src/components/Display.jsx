@@ -36,7 +36,7 @@ const Display = () => {
 
   const fetchBlogs = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/posts');
+      const response = await fetch('https://back-chi-ten.vercel.app/api/posts');
       if (!response.ok) throw new Error('Failed to fetch blogs');
       const data = await response.json();
 
@@ -58,8 +58,8 @@ const Display = () => {
     e.preventDefault();
     try {
       const url = editingId
-        ? `http://localhost:5000/api/posts/${editingId}`
-        : 'http://localhost:5000/api/posts';
+        ? `https://back-chi-ten.vercel.app/api/posts/${editingId}`
+        : 'https://back-chi-ten.vercel.app/api/posts';
 
       const method = editingId ? 'PATCH' : 'POST';
 
@@ -93,7 +93,7 @@ const Display = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this blog?')) {
       try {
-        const response = await fetch(`http://localhost:5000/api/posts/${id}`, {
+        const response = await fetch(`https://back-chi-ten.vercel.app/api/posts/${id}`, {
           method: 'DELETE',
           headers: {
             'Authorization': `Bearer ${token}` // Add token to headers
@@ -142,7 +142,7 @@ const Display = () => {
 
     const handleLike = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/posts/${blog._id}/like`, {
+        const response = await fetch(`https://back-chi-ten.vercel.app/api/posts/${blog._id}/like`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
