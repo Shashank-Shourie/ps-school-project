@@ -3,6 +3,6 @@ Content-Type: application/json
 Authorization: `Bearer ${token}`
 {
     "title":"upload through ai",
-    "contene":"test",
+    "content":"test",
     "tags":["#ai"]
 }
