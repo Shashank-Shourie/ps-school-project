@@ -23,7 +23,7 @@ const BlogDetails = () => {
 
   const fetchBlogDetails = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/posts/${id}`);
+      const response = await fetch(`https://back-chi-ten.vercel.app/api/posts/${id}`);
       if (!response.ok) throw new Error('Failed to fetch blog');
       const data = await response.json();
       setBlog(data);
@@ -38,7 +38,7 @@ const BlogDetails = () => {
 
   const handleLike = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/posts/${id}/like`, {
+      const response = await fetch(`https://back-chi-ten.vercel.app/api/posts/${id}/like`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

@@ -33,7 +33,7 @@ const ChangeUname = () => {
                 username: formData.new_username,
                 id: getUserId()
             }
-            const response = await fetch('http://localhost:5000/api/auth/editusername', {
+            const response = await fetch('https://back-chi-ten.vercel.app/api/auth/editusername', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
