@@ -46,7 +46,7 @@ const Navbar = () => {
     <header
       className={`${
         showNavbar ? 'translate-y-0' : '-translate-y-full'
-      } transition-transform duration-300 sticky top-0 z-50 bg-gray-900 text-sm py-3 shadow-lg bg-opacity-90`}
+      } transition-transform duration-300 sticky top-0 z-50 bg-gray-900 text-sm py-3 shadow-lg`}
     >
       <nav className="max-w-[85rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between">
         <button
