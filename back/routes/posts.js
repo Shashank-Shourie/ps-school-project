@@ -105,4 +105,35 @@ router.put('/:id/like', async (req, res) => {
   }
 });
 
+//dislikes
+
+router.put('/:id/dislike', async (req, res) => {
+  try {
+    const { userId } = req.body; // Assuming userId is passed in the request body
+    const post = await Post.findById(req.params.id);
+    const user = await User.findById(userId);
+
+    if (!post || !user) {
+      return res.status(404).json({ message: 'Post or user not found' });
+    }
+
+    const hasDisliked = user.dislikedPosts.includes(post._id);
+
+    if (hasDisliked) {
+      post.dislikes -= 1;
+      user.dislikedPosts = user.dislikedPosts.filter(postId => postId.toString() !== post._id.toString());
+    } else {
+      post.dislikes += 1;
+      user.dislikedPosts.push(post._id);
+    }
+
+    await post.save();
+    await user.save();
+
+    res.json({ dislikes: post.dislikes, disliked: !hasDisliked });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 module.exports = router;
